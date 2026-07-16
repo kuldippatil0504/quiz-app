@@ -58,19 +58,30 @@ const ResultScreen = () => {
     const percentage = (score / maxScore) * 100;
 
     try {
-      await addDoc(collection(db, 'leaderboard'), {
+      const docData = {
         name: name.trim(),
         quizId: currentQuiz.id,
         quizTitle: currentQuiz.title,
         score: score,
         percentage: percentage,
         completedAt: serverTimestamp()
-      });
+      };
+
+      // Wrap addDoc in a timeout to prevent infinite hang if rules are blocking
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error("Timeout: Could not save score. Check Firebase permissions.")), 5000)
+      );
+
+      await Promise.race([
+        addDoc(collection(db, 'leaderboard'), docData),
+        timeoutPromise
+      ]);
+
       setSubmitted(true);
       navigate(`/leaderboard/${currentQuiz.id}`);
     } catch (error) {
       console.error("Error adding document: ", error);
-      alert("Failed to submit score. Make sure Firebase is configured properly.");
+      alert("Failed to submit score. Make sure Firestore rules are set to Test Mode.");
     } finally {
       setIsSubmitting(false);
     }
