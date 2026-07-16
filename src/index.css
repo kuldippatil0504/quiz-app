@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #3b82f6; /* Blue-500 */
+  --color-primary-hover: #2563eb; /* Blue-600 */
+  --color-secondary: #0ea5e9; /* Sky-500 */
+  --color-background: #0f172a; /* Slate-900 */
+  --color-surface: #1e293b; /* Slate-800 */
+  --color-surface-hover: #334155; /* Slate-700 */
+  --color-surface-light: #475569; /* Slate-600 */
+  --color-text: #f8fafc; /* Slate-50 */
+  --color-text-muted: #94a3b8; /* Slate-400 */
+}
+
+.light {
+  --color-primary: #2563eb; /* Blue-600 */
+  --color-primary-hover: #1d4ed8; /* Blue-700 */
+  --color-secondary: #0284c7; /* Light Blue-600 */
+  --color-background: #f1f5f9; /* Slate-100 */
+  --color-surface: #ffffff; /* White */
+  --color-surface-hover: #e2e8f0; /* Slate-200 */
+  --color-surface-light: #cbd5e1; /* Slate-300 */
+  --color-text: #0f172a; /* Slate-900 */
+  --color-text-muted: #475569; /* Slate-600 */
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: var(--color-surface);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background-color 0.3s ease;
+  }
+  
+  .glass-panel:hover {
+    background: var(--color-surface-hover);
+  }
+  
+  .text-gradient {
+    color: var(--color-primary);
+  }
+  
+  .spotify-play-btn {
+    box-shadow: 0 8px 8px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .spotify-play-btn:hover {
+    transform: scale(1.05);
+    background-color: var(--color-primary-hover);
+  }
+}
