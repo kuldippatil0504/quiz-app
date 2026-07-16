@@ -32,7 +32,7 @@ const LeaderboardPage = () => {
         setLeaders(data);
       } catch (err) {
         console.error("Error fetching leaderboard: ", err);
-        setError("Failed to load leaderboard. Please make sure Firebase is configured.");
+        setError(err.message || "Failed to load leaderboard.");
       } finally {
         setLoading(false);
       }
