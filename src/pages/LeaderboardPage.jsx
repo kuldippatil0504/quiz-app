@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronLeft, Loader, Hash, Clock, ListOrdered } from 'lucide-react';
+import { ChevronLeft, Loader, Hash, Clock, ListOrdered, Trophy } from 'lucide-react';
 import { db } from '../firebase';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 
