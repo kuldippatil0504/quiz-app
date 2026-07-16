@@ -171,24 +171,24 @@ const QuizPlayer = () => {
       <div className="w-full max-w-2xl flex flex-col h-full mt-8">
         
         {/* Top Header */}
-        <div className="flex justify-between items-center mb-8 text-text">
-          <button onClick={handleQuitRequest} className="bg-red-500 hover:bg-red-600 hover:scale-105 active:scale-95 text-white px-5 py-2 rounded-full font-bold shadow-lg shadow-red-500/20 transition-all border border-red-400">
+        <div className="flex justify-between items-center mb-6 md:mb-8 text-text gap-2">
+          <button onClick={handleQuitRequest} className="bg-red-500 hover:bg-red-600 hover:scale-105 active:scale-95 text-white px-4 py-2 md:px-5 md:py-2 text-sm md:text-base rounded-full font-bold shadow-lg shadow-red-500/20 transition-all border border-red-400 shrink-0">
             Quit
           </button>
-          <div className="text-center flex-1 mx-4 flex items-center justify-center gap-4 bg-surface rounded-2xl p-2 pr-6 shadow-md border border-surface-light">
-            <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0 shadow-lg">
+          <div className="text-center flex-1 flex items-center justify-center gap-3 bg-surface rounded-xl md:rounded-2xl p-2 md:pr-6 shadow-md border border-surface-light min-w-0">
+            <div className="hidden sm:block w-10 h-10 md:w-12 md:h-12 rounded-lg overflow-hidden shrink-0 shadow-lg">
                {currentQuiz.thumbnail ? (
                  <img src={currentQuiz.thumbnail} alt="Quiz Art" className="w-full h-full object-cover" />
                ) : (
                  <div className="w-full h-full bg-gradient-to-br from-primary to-secondary" />
                )}
             </div>
-            <div className="text-left">
-              <p className="text-[10px] uppercase tracking-widest text-text-muted">PLAYING FROM</p>
-              <p className="text-sm font-bold truncate max-w-[200px] text-text">{currentQuiz.title}</p>
+            <div className="text-center sm:text-left min-w-0">
+              <p className="text-[9px] md:text-[10px] uppercase tracking-widest text-text-muted">PLAYING FROM</p>
+              <p className="text-xs md:text-sm font-bold truncate text-text">{currentQuiz.title}</p>
             </div>
           </div>
-          <div className="w-8" />
+          <div className="w-8 hidden sm:block shrink-0" />
         </div>
 
         {/* Question & Meta */}
@@ -228,7 +228,7 @@ const QuizPlayer = () => {
         </div>
 
         {/* Options List */}
-        <div className="flex flex-col gap-3 mb-8 flex-1" ref={optionsContainerRef} tabIndex={-1}>
+        <div className="flex flex-col gap-3 mb-6 md:mb-8 flex-1" ref={optionsContainerRef} tabIndex={-1}>
           <AnimatePresence mode="wait">
             <motion.div key={currentQuestionIndex} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full grid grid-cols-1 md:grid-cols-2 gap-3">
               {shuffledOptions.map((option, idx) => {
@@ -238,18 +238,18 @@ const QuizPlayer = () => {
                     key={idx}
                     onClick={() => setSelectedOption(idx)}
                     disabled={isSubmitting}
-                    className={`w-full text-left px-5 py-5 md:py-6 rounded-xl transition-all duration-200 border-2 flex items-center gap-4 ${
+                    className={`w-full text-left px-4 py-4 md:px-5 md:py-6 rounded-xl transition-all duration-200 border-2 flex items-center gap-3 md:gap-4 ${
                       isSelected 
                         ? 'bg-primary border-primary text-white shadow-[0_0_20px_rgba(59,130,246,0.3)] scale-[1.02]' 
                         : 'bg-surface border-surface-light text-text hover:bg-surface-hover'
                     } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                   >
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors ${
+                    <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-sm md:text-base shrink-0 transition-colors ${
                       isSelected ? 'bg-white text-primary' : 'bg-surface-light text-text-muted'
                     }`}>
                       {String.fromCharCode(65 + idx)}
                     </div>
-                    <span className={`font-semibold text-lg md:text-xl flex-1 ${isSelected ? 'text-white' : 'text-text'}`}>
+                    <span className={`font-semibold text-base md:text-xl flex-1 ${isSelected ? 'text-white' : 'text-text'}`}>
                       {option.text}
                     </span>
                   </button>
@@ -260,18 +260,18 @@ const QuizPlayer = () => {
         </div>
 
         {/* Controls */}
-        <div className="mt-auto flex justify-between items-center">
+        <div className="mt-auto flex gap-3 w-full pt-2">
            <button 
               onClick={handleSkip}
               disabled={isSubmitting}
-              className={`px-6 py-3 rounded-full font-bold text-base transition-colors border border-surface-light hover:bg-surface-hover text-text-muted hover:text-text ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`flex-[1] px-2 py-3 md:px-6 md:py-4 rounded-full font-bold text-sm md:text-base transition-colors border border-surface-light hover:bg-surface-hover text-text-muted hover:text-text ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
            >
-              Skip Question
+              Skip
            </button>
            <button 
               onClick={handleNext}
               disabled={selectedOption === null || isSubmitting}
-              className={`px-8 py-4 rounded-full flex items-center justify-center transition-all font-bold text-lg gap-2 ${
+              className={`flex-[2] px-4 py-3 md:px-8 md:py-4 rounded-full flex items-center justify-center transition-all font-bold text-sm md:text-lg gap-2 ${
                 selectedOption !== null && !isSubmitting
                   ? 'bg-primary hover:bg-primary-hover hover:scale-105 active:scale-95 text-white shadow-xl shadow-primary/30'
                   : 'bg-surface border border-surface-light text-text-muted opacity-50 cursor-not-allowed'
@@ -279,13 +279,13 @@ const QuizPlayer = () => {
            >
               {isSubmitting ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Processing...
+                  <div className="w-4 h-4 md:w-5 md:h-5 border-2 border-white border-t-transparent rounded-full animate-spin shrink-0" />
+                  <span className="hidden sm:inline">Processing...</span>
                 </>
               ) : (
                 <>
-                  {currentQuestionIndex === shuffledQuestions.length - 1 ? 'Finish Quiz' : 'Next Question'}
-                  <SkipForward className="w-5 h-5 fill-current" />
+                  <span className="truncate">{currentQuestionIndex === shuffledQuestions.length - 1 ? 'Finish' : 'Next Question'}</span>
+                  <SkipForward className="w-4 h-4 md:w-5 md:h-5 fill-current shrink-0" />
                 </>
               )}
            </button>
