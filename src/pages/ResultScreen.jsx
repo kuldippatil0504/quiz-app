@@ -67,15 +67,7 @@ const ResultScreen = () => {
         completedAt: serverTimestamp()
       };
 
-      // Wrap addDoc in a timeout to prevent infinite hang if rules are blocking
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error("Timeout: Could not save score. Check Firebase permissions.")), 5000)
-      );
-
-      await Promise.race([
-        addDoc(collection(db, 'leaderboard'), docData),
-        timeoutPromise
-      ]);
+      await addDoc(collection(db, 'leaderboard'), docData);
 
       setSubmitted(true);
       navigate(`/leaderboard/${currentQuiz.id}`);
