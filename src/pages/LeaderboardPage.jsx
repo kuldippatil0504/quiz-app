@@ -80,8 +80,9 @@ const LeaderboardPage = () => {
             <Loader className="w-8 h-8 animate-spin text-white" />
           </div>
         ) : error ? (
-          <div className="text-center py-12 text-red-400 bg-red-400/10 rounded-lg border border-red-400/20">
-            {error}
+          <div className="text-center py-12 px-4 text-red-400 bg-red-400/10 rounded-lg border border-red-400/20 break-all select-all">
+            <p className="font-bold mb-2">Firestore Index Required</p>
+            <p className="text-sm opacity-90">{error}</p>
           </div>
         ) : leaders.length === 0 ? (
           <div className="text-center py-20 text-white/50 font-medium">
